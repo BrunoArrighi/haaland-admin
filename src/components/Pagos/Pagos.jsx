@@ -8,6 +8,7 @@ import 'moment/locale/es';
 const Pagos = (props) => {
 
     const [pagos, setPagos] = React.useState([]);
+    const [busqueda, setBusqueda] = React.useState([]);
 
 
 
@@ -83,13 +84,27 @@ const Pagos = (props) => {
         }
       }
 
+      const buscarPago = (text) => {
+        debugger;
+        let filterPagos = [...pagos];
+        filterPagos = filterPagos.filter((pago) => {
+          return pago.apellido.indexOf(text) !== -1
+        });
+        setPagos(filterPagos);
+        setBusqueda('')
+    }
+
     return (
         <div>
             <div className="row">
-            <div>
-              <h1>
-                Pagos
-              </h1>
+            <div className="form-group col-md-4 mt-5">
+              <div className="input-group">
+              <input type="text" class="form-control" placeholder="Apellido Cliente" value={busqueda} onChange={(event) => setBusqueda(event.target.value)}/>
+                <div className="input-group-append" id="button-addon4">
+                  <button className="btn btn-outline-secondary" onClick={() => buscarPago(busqueda)} type="button">Buscar</button>
+                  {/* <button className="btn btn-outline-secondary" onClick={() => refreshClientes()} type="button">Refrescar</button> */}
+                </div>
+              </div>
               </div>
               <div className="form-group col-md-12 mt-5">
                 <table class="table">

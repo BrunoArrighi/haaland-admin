@@ -14,7 +14,7 @@ const RegistrarCompra = (props) => {
     const [productosCompra, setProductosCompra] = React.useState([])
     const [id, setId] = React.useState('')
     const [nombre, setNombre] = React.useState('')
-    const [tipoProducto, setTipoProducto] = React.useState('Indumentaria')
+    const [tipoProducto, setTipoProducto] = React.useState('')
     // const [tipoProductoString, setTipoProductoString] = React.useState('')
     const [precioCompra, setPrecioCompra] = React.useState('')
     const [descuento, setDescuento] = React.useState('')
@@ -97,7 +97,7 @@ const RegistrarCompra = (props) => {
             estado:true
           }
           var keyCompra = '';
-          const dataNuevaCompra = await db.collection('ventas').add(addCompra)
+          const dataNuevaCompra = await db.collection('compras').add(addCompra)
         
 
         keyCompra = dataNuevaCompra.id;
@@ -185,6 +185,7 @@ const RegistrarCompra = (props) => {
       setPrecioCompra('')
       setDescuento('')
       setCantidad('')
+      setTipoProducto('')
         }
 
     return (
@@ -219,6 +220,7 @@ const RegistrarCompra = (props) => {
                             <select class="custom-select" id="inputGroupSelect01"
                             onChange={e => setTipoProducto(e.target.value)}
                             >
+                              <option value=''>Seleccione un tipo de Producto</option>
                                 { tiposProducto.map(item => (
                                 <option value={item.nombre}>{item.nombre}</option>
                                 ))

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Modal} from 'react-bootstrap';
+import Form from 'react-bootstrap/Form'
 import {auth} from '../../firebase';
 import {withRouter} from 'react-router-dom';
 import {firebase} from '../../firebase';
@@ -29,7 +30,7 @@ const AgregarVenta = (props) => {
             const data = await db.collection('productos').get()
             const arrayData = data.docs.map(doc => ({ id: doc.id, ...doc.data() }))
             console.log(arrayData)
-            const productosFiltrado = arrayData.filter(doc => doc.estado === true)
+            const productosFiltrado = arrayData.filter(doc => doc.estado === true && doc.stock > 0)
             setArrayProductos(productosFiltrado);
             
           } catch (error) {
@@ -155,7 +156,7 @@ const AgregarVenta = (props) => {
         
 
 
-
+            setError('')
             const precioTotal = parseFloat(precioVenta * cantidad);
             const objetoProducto = {
                 idProducto: idProducto,
@@ -221,7 +222,10 @@ const AgregarVenta = (props) => {
                         <div class="input-group mb-3">
                             <select class="custom-select" id="inputGroupSelect01"
                             onChange={e => setIdProducto(e.target.value)}
+                            // defaultValue={arrayProductos[0].id}
+                            label="Seleccione un Producto"
                             >
+                              <option value=''>Seleccione un Producto</option>
                                 { arrayProductos.map(item => (
                                 <option value={item.id}>{item.nombre}</option>
                                 ))

@@ -64,12 +64,6 @@ const Ventas = (props) => {
         state: { detail: id }
       })
     }
-  
-   
-
-    const agregarVenta = () => {
-      props.history.push('/ventas/agregar')
-    }
       
 
     
@@ -77,14 +71,6 @@ const Ventas = (props) => {
     return (
         <div>
             <div className="row">
-              <div>
-              <button 
-                  className="btn btn-dark btn-sm float-center mr-2 mt-5 ml-5"
-                  onClick={() => agregarVenta()}
-              >
-                 + Agregar Venta
-              </button>
-              </div>
                 <div className="form-group col-md-12 mt-5">
                 <table className="table">
                     <thead className="thead-dark">

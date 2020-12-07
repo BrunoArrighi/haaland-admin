@@ -9,6 +9,7 @@ const DetalleCompra = (props) => {
     const idVenta = props.location.state.detail;
 
     const [detalleVenta, setDetalleVenta] = React.useState([]);
+    // const [cantidadVenta, setCantidadVenta] = React.useState([]);
     const [error, setError] = React.useState(null);
     const [show, setShow] = React.useState(true);
 
@@ -16,16 +17,16 @@ const DetalleCompra = (props) => {
 
         if(auth.currentUser) {
           const obtenerDatos = async () => {
-              const productos = [];
             try {
-      
+              debugger;
               const db = firebase.firestore()
               const data = await db.collection('productosVenta').get()
               const arrayData = data.docs.map(doc => ({ id: doc.id, ...doc.data() }))
               console.log(arrayData)
               const comprasFiltrado = arrayData.filter(doc => doc.estado === true && doc.idVenta === idVenta)
               console.log(comprasFiltrado)
-              const idProductos = comprasFiltrado.map(item => ({id: item.idProducto}));
+              // const cantVendido = comprasFiltrado.map(item => ({cant: item.cantidad}));
+              // setCantidadVenta(cantVendido);
             //   idProductos.map(async item => {
             //       debugger;
             //     db.collection('productos').doc(item.id).get().then(function(dataDetalleProducto){
@@ -37,14 +38,14 @@ const DetalleCompra = (props) => {
                 
             //   })
               
-            for(var i = 0; i < idProductos.length; i++ ){
-                debugger;
-                const dataDetalleProducto = await db.collection('productos').doc(idProductos[i].id).get()
-                const detalleProducto = dataDetalleProducto.data()
-                productos.push(detalleProducto);
-            }
+            // for(var i = 0; i < idProductos.length; i++ ){
+            //     debugger;
+            //     const dataDetalleProducto = await db.collection('productos').doc(idProductos[i].id).get()
+            //     const detalleProducto = dataDetalleProducto.data()
+            //     productos.push(detalleProducto);
+            // }
             debugger;
-            setDetalleVenta(productos);
+            setDetalleVenta(comprasFiltrado);
             console.log(detalleVenta)
 
               
@@ -88,8 +89,8 @@ const DetalleCompra = (props) => {
                     <thead class="thead-dark">
                         <tr>
                         <th scope="col">Nombre Producto</th>
-                        <th scope="col">Tipo Producto</th>
-                        <th scope="col">Precio Unitario</th>
+                        <th scope="col">Importe Unitario</th>
+                        <th scope="col">Importe Total</th>
                         <th scope="col">Cantidad</th>
                         </tr>
                     </thead>
@@ -100,13 +101,14 @@ const DetalleCompra = (props) => {
                         detalleVenta.map(item => (
                             <tr>
                                 <td>{item.nombre}</td>
-                                <td>{item.tipoProducto}</td>
-                                <td>{item.precioUnitario}</td>
-                                <td>{item.stock}</td>
-                                
+                                <td>{item.importeUnitario}</td>
+                                <td>{item.importeTotal}</td>
+                                <td>{item.cantidad}</td>
                               </tr>
-                         ))
-                    }
+                          ))
+                        } 
+                         
+                    
 
                     </tbody>
                     </table>

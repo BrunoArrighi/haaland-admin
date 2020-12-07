@@ -27,7 +27,7 @@ const Compras = (props) => {
             const data = await db.collection('productos').get()
             const arrayData = data.docs.map(doc => ({ id: doc.id, ...doc.data() }))
             console.log(arrayData)
-            const productosFiltrado = arrayData.filter(doc => doc.estado === true)
+            const productosFiltrado = arrayData.filter(doc => doc.estado === true && doc.stock > 0)
             console.log(productosFiltrado)
             setProductos(productosFiltrado)
             
